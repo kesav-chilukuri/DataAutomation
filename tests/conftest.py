@@ -29,7 +29,10 @@ def read_data(spark_session,read_config):
     config=read_config
     print("spark is ",spark)
     print("config is ",config)
-    print('=='*50)
-    print("source data",config['source'])
-    print('==' * 50)
-    print("Target data", config['target'])
+    source_config=config["source"]
+    target_config=config["target"]
+    if source_config['type']=='database':
+        pass
+    else:
+        source_df=spark.read.csv(path=source_config['path'],header=source_config['options']['header'])
+        source_df.show()
